@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue first demo</title>
+		<link rel="stylesheet" type="text/css" href="layui.css">
+		<style>
+			.data-table-content{margin-top: 10px}
+			.data-add-container{margin-top: 20px}
+			#add-button-content{text-align: center}
+		</style>
+	</head>
+	<body>
+		<div id="main-container" class="layui-container">
+			<div class="layui-row">
+				<div class="data-table-content layui-col-md6">
+					<table class="layui-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Age</th>
+								<th>Fraction</th>
+								<th>Operoter</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for='(stu,index) in students'>
+								<td>{{stu.name}}</td>
+								<td>{{stu.age}}</td>
+								<td>{{stu.fraction}}</td>
+								<td><button type="button" v-on:click='deleteStu(index)' class="layui-btn layui-btn-danger layui-btn-sm">DELETE</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="data-add-container layui-col-md6">
+						<div class="layui-form-item">
+						  <label class="layui-form-label">Name</label>
+						  <div class="layui-input-block">
+						    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" v-model="newStu.name">
+						  </div>
+						</div>
+						<div class="layui-form-item">
+						  <label class="layui-form-label">Age</label>
+						  <div class="layui-input-block">
+						    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" v-model="newStu.age">
+						  </div>
+						</div>
+						<div class="layui-form-item">
+						  <label class="layui-form-label">Fraction</label>
+						  <div class="layui-input-block">
+						    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" v-model="newStu.fraction">
+						  </div>
+						</div>
+						<div class="layui-form-item" id="add-button-content">
+							<button class="layui-btn" v-on:click="addStu">ADD</button>
+						</div>
+				</div>
+			</div>
+			
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			var app = new Vue({
+				el:"#main-container",
+				data:{
+					students:[{'name':'Lily','age':5,'fraction':80},{'name':'Amy','age':9,'fraction':90},{'name':'Ella','age':7,'fraction':85}],
+					newStu:{
+						name:"",
+						age:'',
+						fraction:''
+					}
+				},
+				methods:{
+					deleteStu:function(index){
+						this.students.splice(index,1)
+					},
+					addStu:function(){
+						this.students.push(this.newStu);
+						this.newStu={
+							name:"",
+							age:'',
+							fraction:''
+						}
+
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
